@@ -11,6 +11,7 @@ foreach ($files as $file_item) {
     $obj = json_decode($data, true);
 
     if (!$obj || json_last_error() !== JSON_ERROR_NONE) {
+        print "$file_item\n";
         continue;
     }
 
