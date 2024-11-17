@@ -36,7 +36,7 @@ Contributions, issues, and feature requests are welcome! Feel free to open an is
 
 ## Data Source
 
-The data in this repository was collected using the Buskool Crawler. It is intended for educational, research, and development purposes only.
+The data in this repository was collected from Buskool.com website. It is intended for educational, research, and development purposes only.
 
 ## License
 
