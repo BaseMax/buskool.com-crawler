@@ -62,3 +62,5 @@ while (true) {
 
 	$page++;
 }
+
+print "Done.\n";

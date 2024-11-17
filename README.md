@@ -10,12 +10,11 @@ This repository contains a PHP-based crawler and scraper designed to fetch and d
 
 ## Requirements
 
-- PHP 8.3+
+PHP 8.3+
 
 ## Installation
 
 Clone the repository:
-
    ```bash
    git clone https://github.com/BaseMax/buskool.com-crawler.git
    cd buskool.com-crawler
@@ -24,9 +23,10 @@ Clone the repository:
 ## Usage
 
 Run the crawler script:
-```bash
-php products.php
-```
+   ```bash
+   php download.php
+   php create-products.php
+   ```
 
 The collected data will be saved in the specified directory as JSON files.
 
