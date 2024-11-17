@@ -16,8 +16,9 @@ foreach ($files as $file_item) {
     }
 
     foreach ($obj["products"] as $product) {
-        file_put_contents("products/$index.json", json_encode($product, JSON_UNESCAPED_UNICODE));
-        
+        $json = json_encode($product, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        file_put_contents("products/$index.json", $json);
+
         $index++;
     }
 }
