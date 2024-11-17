@@ -54,11 +54,11 @@ $page = 53;
 while (true) {
 	$obj = fetch_products($page);
 
-    file_put_contents("data/$page.json", json_encode($obj, JSON_UNESCAPED_UNICODE));
-
 	if (!isset($obj["products"]) || !is_array($obj["products"]) || count($obj["products"]) === 0) {
 		break;
 	}
+
+	file_put_contents("data/$page.json", json_encode($obj, JSON_UNESCAPED_UNICODE));
 
 	$page++;
 }
