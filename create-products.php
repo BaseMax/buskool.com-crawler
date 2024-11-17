@@ -10,7 +10,7 @@ foreach ($files as $file_item) {
     $data = file_get_contents($file_item);
     $obj = json_decode($data, true);
 
-    if (json_last_error() !== JSON_ERROR_NONE) {
+    if (!$obj || json_last_error() !== JSON_ERROR_NONE) {
         continue;
     }
 
