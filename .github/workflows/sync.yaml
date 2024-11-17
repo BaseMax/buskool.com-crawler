@@ -1,0 +1,45 @@
+name: Crawl and Sync Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *' # Runs daily at 2 AM UTC (adjust as needed)
+
+jobs:
+  crawl-and-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Crawler Repository
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: mbstring, json
+
+      - name: Install Dependencies
+        run: composer install || echo "No composer.json found"
+
+      - name: Run Crawler Scripts
+        run: |
+          php download.php
+          php create-products.php
+
+      - name: Clone Data Repository
+        run: |
+          git clone https://github.com/BaseMax/buskool.com-data.git data-repo
+          rsync -av --delete data/ data-repo/data/
+          rsync -av --delete products/ data-repo/products/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push Changes
+        run: |
+          cd data-repo
+          git config --global user.name "Max Base"
+          git config --global user.email "maxbasecode@gmail.com"
+          git add .
+          git commit -m "Update data and products from crawler run [${{ github.run_id }}]" || echo "No changes to commit"
+          git push
