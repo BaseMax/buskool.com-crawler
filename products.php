@@ -50,7 +50,7 @@ function fetch_products(int $page = 1) : ?array
 
 @mkdir("data/");
 
-$page = 1;
+$page = 53;
 while (true) {
 	$obj = fetch_products($page);
 
