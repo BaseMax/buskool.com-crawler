@@ -39,8 +39,6 @@ jobs:
           rsync -av --delete products/ data-repo/products/
           cd data-repo
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/BaseMax/buskool.com-data.git data-repo
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and Push Changes
         run: |
