@@ -23,7 +23,7 @@ jobs:
         run: |
           git config --global user.name "Max Base (Actions)"
           git config --global user.email "maxbasecode+githubactions@gmail.com"
-
+        
       - name: Install Dependencies
         run: composer install || echo "No composer.json found"
 
