@@ -3,7 +3,7 @@ name: Crawl and Sync Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *' # Runs daily at 2 AM UTC
+    - cron: '0 2 * * *'
 
 jobs:
   crawl-and-sync:
@@ -19,6 +19,11 @@ jobs:
           php-version: 8.3
           extensions: mbstring, json
 
+      - name: Update from repository
+        run: |
+          git config user.name "Max Base (Actions)"
+          git config --global user.email "maxbasecode+githubactions@gmail.com"
+
       - name: Install Dependencies
         run: composer install || echo "No composer.json found"
 
@@ -32,14 +37,14 @@ jobs:
           git clone https://github.com/BaseMax/buskool.com-data.git data-repo
           rsync -av --delete data/ data-repo/data/
           rsync -av --delete products/ data-repo/products/
+          cd data-repo
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/BaseMax/buskool.com-data.git data-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and Push Changes
         run: |
           cd data-repo
-          git config --global user.name "Max Base"
-          git config --global user.email "maxbasecode@gmail.com"
           git add .
           git commit -m "Update data and products from crawler run [${{ github.run_id }}]" || echo "No changes to commit"
-          git push
+          git push origin main
